@@ -60,21 +60,21 @@ xml.each do |chamber|
   mems.each do |mem|
     person = mem.xpath('person')
     person.xpath('changes').each { |m| m.remove } # make eyeballing easier
+    psp_id = person.xpath('.//identifiers[scheme[text()="psp.cz/osoby"]]/identifier').text
     data = { 
-      id: person.xpath('.//identifiers[scheme[text()="psp.cz/osoby"]]/identifier').text,
+      id: psp_id,
+      identifier__psp: psp_id,
       identifier__parldata: person.xpath('id').text,
-
       name: person.xpath('name').text,
       sort_name: person.xpath('sort_name').text,
       family_name: person.xpath('family_name').text,
       given_name: person.xpath('given_name').text,
       honorific_prefix: person.xpath('honorific_prefix').text,
-
       birth_date: person.xpath('birth_date').text,
       death_date: person.xpath('death_date').text,
-      email: person.xpath('gender').text,
-      email: person.xpath('email').text,
-      image: person.xpath('image').text,
+      gender: person.xpath('gender').text,
+      # email: person.xpath('email').text,
+      # image: person.xpath('image').text,
       term: term[:id],
     }
     data.delete :sort_name if data[:sort_name] == ','
