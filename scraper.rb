@@ -47,7 +47,7 @@ xml.each do |chamber|
     end_date: chamber.xpath('.//dissolution_date').text,
   }
   term[:name] = '%s. volební období' % term[:id]
-  # puts term.to_s.cyan
+  warn term[:name]
   ScraperWiki.save_sqlite([:id], term, 'terms')
 
   # http://api.parldata.eu/cz/psp/memberships?where={"organization_id":"165"}&embed=["person.memberships.organization"]
