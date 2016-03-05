@@ -92,6 +92,7 @@ xml.each do |chamber|
       row = data.merge({
         party: 'Unknown', # or none?
         party_id: '_unknown',
+        start_date: '',
       })
       # puts row.to_s.red
       ScraperWiki.save_sqlite([:id, :term], row)
