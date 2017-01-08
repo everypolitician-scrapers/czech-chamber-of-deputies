@@ -1,12 +1,11 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-require 'scraperwiki'
+require 'csv'
 require 'nokogiri'
 require 'open-uri'
-require 'colorize'
 require 'rest-client'
-require 'csv'
+require 'scraperwiki'
 
 require 'pry'
 require 'open-uri/cached'
@@ -73,7 +72,7 @@ xml.each do |chamber|
       birth_date: person.xpath('birth_date').text,
       death_date: person.xpath('death_date').text,
       gender: person.xpath('gender').text,
-      # email: person.xpath('email').text,
+      # email: person.xpath('email').text,
       # image: person.xpath('image').text,
       term: term[:id],
     }
@@ -94,13 +93,13 @@ xml.each do |chamber|
         party_id: '_unknown',
         start_date: '',
       })
-      # puts row.to_s.red
+      # puts row.to_s
       ScraperWiki.save_sqlite([:id, :term], row)
     else
       mems.each do |mem|
         range = overlap(mem, term) or raise "No overlap"
         row = data.merge(mem).merge(range)
-        # puts row.to_s.magenta
+        # puts row.to_s
         ScraperWiki.save_sqlite([:id, :term, :start_date], row)
       end
     end
