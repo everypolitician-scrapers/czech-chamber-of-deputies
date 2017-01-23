@@ -37,7 +37,9 @@ def overlap(mem, term)
   }
 end
 
-#  http://api.parldata.eu/cz/psp/organizations?where={"classification":"chamber"}
+ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
+
+# http://api.parldata.eu/cz/psp/organizations?where={"classification":"chamber"}
 xml = noko_q('organizations', where: %({"classification":"chamber"}))
 xml.each do |chamber|
   term = {
@@ -71,7 +73,7 @@ xml.each do |chamber|
       birth_date:           person.xpath('birth_date').text,
       death_date:           person.xpath('death_date').text,
       gender:               person.xpath('gender').text,
-      # eemail: person.xpath('email').text,
+      # email: person.xpath('email').text,
       # image: person.xpath('image').text,
       term:                 term[:id],
     }
