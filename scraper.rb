@@ -37,7 +37,7 @@ def overlap(mem, term)
   }
 end
 
-ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
+ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
 
 # http://api.parldata.eu/cz/psp/organizations?where={"classification":"chamber"}
 xml = noko_q('organizations', where: %({"classification":"chamber"}))
